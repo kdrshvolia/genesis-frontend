@@ -3,7 +3,7 @@ module.exports = {
   preset: "ts-jest",
   testEnvironment: "jsdom",
   transform: {
-    "^.+\\.test.ts?$": [
+    '^.+\\.ts?(x)$': [
       "ts-jest",
       {
         diagnostics: {
@@ -13,4 +13,5 @@ module.exports = {
     ],
   },
   transformIgnorePatterns: ["<rootDir>/node_modules/"],
+  testMatch: ["**/__tests__/**/*.ts?(x)", "**/?(*.)+(test).ts?(x)"]
 };

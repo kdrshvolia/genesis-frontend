@@ -29,9 +29,7 @@ export const CoursesList = ({ courses }: CoursesListProps) => {
       maxWidth="800px"
       margin="0 auto"
     >
-      {showedData.map((item) => {
-        return <CourseListItem course={item} key={item.id} />;
-      })}
+      {showedData.map((item) => <CourseListItem course={item} key={item.id} />)}
       <Pagination
         count={pagesCount}
         size="large"

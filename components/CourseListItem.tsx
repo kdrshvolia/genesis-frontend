@@ -11,6 +11,7 @@ interface CourseProps {
 
 export const CourseListItem = ({ course }: CourseProps) => {
   const { skills, courseVideoPreview } = course.meta;
+
   return (
     <Box
       display="grid"
@@ -37,9 +38,18 @@ export const CourseListItem = ({ course }: CourseProps) => {
           </Typography>
         </Link>
         <Rating name="read-only" value={course.rating} readOnly />
-        <Box display="flex" flexWrap="wrap" gap="10px" justifyContent="center">
-          {skills && skills.map((skill) => <Chip label={skill} key={skill} />)}
-        </Box>
+        {skills && (
+          <Box
+            display="flex"
+            flexWrap="wrap"
+            gap="10px"
+            justifyContent="center"
+          >
+            {skills.map((skill) => (
+              <Chip label={skill} key={skill} />
+            ))}
+          </Box>
+        )}
       </Box>
     </Box>
   );

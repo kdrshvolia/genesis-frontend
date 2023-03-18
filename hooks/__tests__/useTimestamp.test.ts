@@ -1,4 +1,4 @@
-import { act, screen, renderHook } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 import { useTimestamp } from "../useTimestamp";
 
 const localStorageMock = (() => {
@@ -47,7 +47,6 @@ describe("useTimestamp", () => {
     act(() => {
       result.current.handlePauseVideo(event);
     });
-    screen.debug();
     expect(result.current.timeStamp).toBe(8);
   });
 });

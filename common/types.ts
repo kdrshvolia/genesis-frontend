@@ -15,7 +15,7 @@ export interface BaseCourse {
     courseVideoPreview?: {
       link: string;
       duration: number;
-      reviewImageLink: string;
+      previewImageLink: string;
     };
   };
 }

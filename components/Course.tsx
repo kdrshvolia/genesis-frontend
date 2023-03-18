@@ -25,31 +25,36 @@ export const Course = ({ course }: CourseProps) => {
   };
 
   return (
-    <Box display="grid" gridTemplateColumns="1fr 1fr" gap="20px">
-      <Typography variant="h4" gridColumn="1/3">
-        {lessons[selectedLessonIndex].title}
-      </Typography>
-      <Box flexBasis="50%">
-        <Video src={currentVideoSrc} />
-        <Typography component="p">
-          You can adjust video speed by using shortcuts Alt+ArrowUp/Alt+ArrowDown
+    <Box>
+      <Typography variant="h4">{course.title}</Typography>
+      <Typography variant="h5">Lessons number: {lessons.length}</Typography>
+      <Box display="grid" gridTemplateColumns="1fr 1fr" gap="20px">
+        <Typography variant="h5" gridColumn="1/3">
+          {lessons[selectedLessonIndex].title}
         </Typography>
+        <Box flexBasis="50%">
+          <Video src={currentVideoSrc} />
+          <Typography component="p">
+            You can adjust video speed by using shortcuts
+            Alt+ArrowUp/Alt+ArrowDown
+          </Typography>
+        </Box>
+        {lessons.length > 0 && (
+          <List>
+            {lessons.map((lesson, index) => (
+              <ListItemButton
+                key={lesson.id}
+                selected={selectedLessonIndex === index}
+                onClick={() => handleLessonItemClick(index)}
+                disabled={lesson.status === "locked"}
+              >
+                <ListItemText primary={lesson.title} />
+                {lesson.status === "locked" && <LockIcon />}
+              </ListItemButton>
+            ))}
+          </List>
+        )}
       </Box>
-      {lessons.length > 0 && (
-        <List>
-          {lessons.map((lesson, index) => (
-            <ListItemButton
-              key={lesson.id}
-              selected={selectedLessonIndex === index}
-              onClick={() => handleLessonItemClick(index)}
-              disabled={lesson.status === "locked"}
-            >
-              <ListItemText primary={lesson.title} />
-              {lesson.status === "locked" && <LockIcon />}
-            </ListItemButton>
-          ))}
-        </List>
-      )}
     </Box>
   );
 };
