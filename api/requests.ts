@@ -1,43 +1,42 @@
-import {Course} from "@/pages/common/types";
+import {Course, CourseItem} from "@/common/types";
 
 const BASE_URL = "http://api.wisey.app/api/v1/";
-
-interface GetTokenResponse {
-  token: string;
-}
 
 interface CoursesListResponse {
   courses: Course[];
 }
 
-export const getToken = async (): Promise<string> => {
-  try {
-    const response = await fetch(
-      `${BASE_URL}auth/anonymous?platform=subscriptions`,
-      {
-        method: "GET",
-      }
-    );
-    const responseData: GetTokenResponse = await response.json();
-    return responseData.token;
-  } catch (e) {
-    throw new Error("An error occurred when trying to get token")
-  }
-};
-
-export const getCoursesList = async (token: string): Promise<Course[]> => {
+export const getCoursesList = async (): Promise<Course[]> => {
   try {
     const response = await fetch(`${BASE_URL}core/preview-courses`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5YjA0YTIzOS0wMWY3LTQ1ZjgtYTk0MS02M2NiMmQxNzNmMjciLCJwbGF0Zm9ybSI6InN1YnNjcmlwdGlvbnMiLCJpYXQiOjE2Nzg5NzMwNjAsImV4cCI6MTY3OTg3MzA2MH0.e53WfTS6UG4wr77jV_H0jp29jm5VVLIdG3YOdfmGaLg`,
       },
     });
 
     const responseData: CoursesListResponse = await response.json();
     return responseData.courses;
   } catch (e) {
-    throw new Error("An error occurred when trying to get courses list")
+    throw new Error("An error occurred when trying to get courses list");
+  }
+};
+
+export const getCourseById = async (
+  id: string
+): Promise<CourseItem> => {
+  try {
+    const response = await fetch(`${BASE_URL}core/preview-courses/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5YjA0YTIzOS0wMWY3LTQ1ZjgtYTk0MS02M2NiMmQxNzNmMjciLCJwbGF0Zm9ybSI6InN1YnNjcmlwdGlvbnMiLCJpYXQiOjE2Nzg5NzMwNjAsImV4cCI6MTY3OTg3MzA2MH0.e53WfTS6UG4wr77jV_H0jp29jm5VVLIdG3YOdfmGaLg`,
+      },
+    });
+
+    return await response.json();
+  } catch (e) {
+    throw new Error("An error occurred when trying to course info");
   }
 };
