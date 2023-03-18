@@ -1,25 +1,19 @@
 import React from "react";
-import { CourseItem } from "@/common/types";
-import { getCourseById } from "@/api/requests";
+import { CourseItem } from "../../common/types";
+import { getCourseById } from "../../api/requests";
+import { Course } from "../../components/Course";
 import { GetServerSideProps } from "next";
-import { Course } from "@/components/Course";
 
 interface PageProps {
   course: CourseItem;
 }
 
-const Page = ({ course }: PageProps) => <Course course={course} />;
+const Page = ({ course }: PageProps) => {
+  return <Course course={course} />;
+};
 
-export const getServerSideProps: GetServerSideProps<PageProps> = async ({
-  query,
-}) => {
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const courseId = query.courseId as string;
-
-  if (!courseId) {
-    return {
-      notFound: true,
-    };
-  }
 
   const course = await getCourseById(courseId);
 

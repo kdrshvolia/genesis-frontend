@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CourseItem } from "@/common/types";
+import { CourseItem } from "../common/types";
 import {
   Box,
   List,
@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
-import { Video } from "@/components/Video";
+import { Video } from "./Video";
 
 interface CourseProps {
   course: CourseItem;

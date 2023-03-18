@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import Hls from "hls.js";
-import { usePlaybackSpeed } from "@/hooks/usePlaybackSpeed";
-import { useTimestamp } from "@/hooks/useTimestamp";
+import { usePlaybackSpeed } from "../hooks/usePlaybackSpeed";
+import { useTimestamp } from "../hooks/useTimestamp";
 import { Box, Button } from "@mui/material";
 
 interface VideoProps {
@@ -12,7 +12,13 @@ interface VideoProps {
   height?: string | number;
 }
 
-export const Video = ({ src, width, height, playMutedOnHover, poster }: VideoProps) => {
+export const Video = ({
+  src,
+  width,
+  height,
+  playMutedOnHover,
+  poster,
+}: VideoProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const playOnHover = (e: any) => e.target.play();
@@ -41,7 +47,6 @@ export const Video = ({ src, width, height, playMutedOnHover, poster }: VideoPro
 
     hls.loadSource(src);
     hls.attachMedia(video);
-
   }, [src]);
 
   const togglePictureInPicture = () => {

@@ -1,15 +1,18 @@
 import React from "react";
-import { Course } from "@/common/types";
-import { getCoursesList } from "@/api/requests";
-import { CoursesList } from "@/components/CoursesList";
+import { Course } from "../../common/types";
+import { getCoursesList } from "../../api/requests";
+import { CoursesList } from "../../components/CoursesList";
+import { GetServerSideProps } from "next";
 
 interface PageProps {
   coursesList: Course[];
 }
 
-const Page = ({ coursesList }: PageProps) => <CoursesList courses={coursesList} />;
+const Page = ({ coursesList }: PageProps) => (
+  <CoursesList courses={coursesList} />
+);
 
-export const getServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const coursesList = await getCoursesList();
 
   return {

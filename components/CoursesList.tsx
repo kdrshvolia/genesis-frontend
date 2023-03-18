@@ -1,8 +1,8 @@
 import React from "react";
-import { Course } from "@/common/types";
-import { CourseListItem } from "@/components/CourseListItem";
+import { Course } from "../common/types";
+import { CourseListItem } from "./CourseListItem";
 import { Box, Pagination } from "@mui/material";
-import { usePagination } from "@/hooks/usePagination";
+import { usePagination } from "../hooks/usePagination";
 
 interface CoursesListProps {
   courses: Course[];

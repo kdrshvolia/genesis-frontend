@@ -1,4 +1,4 @@
-import {Course, CourseItem} from "@/common/types";
+import {Course, CourseItem} from "../common/types";
 
 const BASE_URL = "http://api.wisey.app/api/v1/";
 
