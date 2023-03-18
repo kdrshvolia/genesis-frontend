@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import { Video } from "./Video";
-import {getLessonDuration} from "../utils/utils";
+import { getCourseLessonImageLink, getLessonDuration } from "../utils/utils";
 
 interface CourseProps {
   course: CourseItem;
@@ -19,7 +19,7 @@ export const Course = ({ course }: CourseProps) => {
   const { lessons } = course;
 
   const [selectedLessonIndex, setSelectedLessonIndex] = useState(0);
-  const currentVideoSrc = lessons[selectedLessonIndex].link;
+  const currentLesson = lessons[selectedLessonIndex];
 
   const handleLessonItemClick = (index: number) => {
     setSelectedLessonIndex(index);
@@ -33,7 +33,13 @@ export const Course = ({ course }: CourseProps) => {
       <Typography variant="h5">{lessons[selectedLessonIndex].title}</Typography>
       <Box display="flex" gap="20px" flexDirection={["column", "row"]}>
         <Box flexBasis={["100%", "50%"]}>
-          <Video src={currentVideoSrc} />
+          <Video
+            src={currentLesson.link}
+            poster={getCourseLessonImageLink(
+              currentLesson.previewImageLink,
+              currentLesson.order
+            )}
+          />
           <Typography component="p">
             You can adjust video speed by using shortcuts
             Alt+ArrowUp/Alt+ArrowDown
@@ -50,7 +56,9 @@ export const Course = ({ course }: CourseProps) => {
                   disabled={lesson.status === "locked"}
                 >
                   <ListItemText primary={lesson.title} />
-                  <Typography variant="body2">{getLessonDuration(lesson.duration)}</Typography>
+                  <Typography variant="body2">
+                    {getLessonDuration(lesson.duration)}
+                  </Typography>
                   {lesson.status === "locked" && <LockIcon />}
                 </ListItemButton>
               ))}
