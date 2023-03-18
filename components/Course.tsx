@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import { Video } from "./Video";
+import {getLessonDuration} from "../utils/utils";
 
 interface CourseProps {
   course: CourseItem;
@@ -28,11 +29,10 @@ export const Course = ({ course }: CourseProps) => {
     <Box>
       <Typography variant="h4">{course.title}</Typography>
       <Typography variant="h5">Lessons number: {lessons.length}</Typography>
-      <Box display="grid" gridTemplateColumns="1fr 1fr" gap="20px">
-        <Typography variant="h5" gridColumn="1/3">
-          {lessons[selectedLessonIndex].title}
-        </Typography>
-        <Box flexBasis="50%">
+      <Typography variant="body1">{course.description}</Typography>
+      <Typography variant="h5">{lessons[selectedLessonIndex].title}</Typography>
+      <Box display="flex" gap="20px" flexDirection={["column", "row"]}>
+        <Box flexBasis={["100%", "50%"]}>
           <Video src={currentVideoSrc} />
           <Typography component="p">
             You can adjust video speed by using shortcuts
@@ -40,19 +40,22 @@ export const Course = ({ course }: CourseProps) => {
           </Typography>
         </Box>
         {lessons.length > 0 && (
-          <List>
-            {lessons.map((lesson, index) => (
-              <ListItemButton
-                key={lesson.id}
-                selected={selectedLessonIndex === index}
-                onClick={() => handleLessonItemClick(index)}
-                disabled={lesson.status === "locked"}
-              >
-                <ListItemText primary={lesson.title} />
-                {lesson.status === "locked" && <LockIcon />}
-              </ListItemButton>
-            ))}
-          </List>
+          <Box flexBasis={["100%", "50%"]}>
+            <List>
+              {lessons.map((lesson, index) => (
+                <ListItemButton
+                  key={lesson.id}
+                  selected={selectedLessonIndex === index}
+                  onClick={() => handleLessonItemClick(index)}
+                  disabled={lesson.status === "locked"}
+                >
+                  <ListItemText primary={lesson.title} />
+                  <Typography variant="body2">{getLessonDuration(lesson.duration)}</Typography>
+                  {lesson.status === "locked" && <LockIcon />}
+                </ListItemButton>
+              ))}
+            </List>
+          </Box>
         )}
       </Box>
     </Box>
