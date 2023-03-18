@@ -29,6 +29,7 @@ export const usePlaybackSpeed = ({
       }
     };
 
+
     window.addEventListener("keydown", increasePlayBackSpeed);
     return () => {
       window.removeEventListener("keydown", increasePlayBackSpeed);

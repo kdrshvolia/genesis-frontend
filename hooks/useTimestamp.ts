@@ -7,14 +7,14 @@ interface UseTimestampProps {
 export const useTimestamp = ({ src, videoRef }: UseTimestampProps) => {
   const [timeStamp, setTimeStamp] = useState(0);
   useEffect(() => {
-    const currentTimeStamp = JSON.parse(localStorage.getItem(src) || "{}");
+    const currentTimeStamp = Number(localStorage.getItem(src)) || 0;
     if (currentTimeStamp) {
       setTimeStamp(currentTimeStamp);
     }
   }, [src]);
 
   const handlePauseVideo = (e: any) => {
-    localStorage.setItem(src, JSON.stringify(e.target.currentTime));
+    localStorage.setItem(src, String(e.target.currentTime));
     setTimeStamp(e.target.currentTime);
   };
 
@@ -23,7 +23,7 @@ export const useTimestamp = ({ src, videoRef }: UseTimestampProps) => {
       return;
     }
     if (videoRef.current) {
-      if (timeStamp < videoRef?.current.duration) {
+      if (timeStamp < videoRef.current.duration) {
         videoRef.current.currentTime = timeStamp;
       } else {
         videoRef.current.currentTime = 0;
