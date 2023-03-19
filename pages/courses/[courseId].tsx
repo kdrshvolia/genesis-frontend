@@ -9,13 +9,16 @@ interface PageProps {
 }
 
 const Page = ({ course }: PageProps) => {
-  return <Course course={course} />;
+  return Object.keys(course).length !== 0 ? <Course course={course} /> : null;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
   const courseId = query.courseId as string;
-
-  const course = await getCourseById(courseId);
+  const authToken = req.cookies?.authToken;
+  let course: CourseItem;
+  if (authToken) {
+    course = await getCourseById(authToken, courseId);
+  }
 
   return {
     props: {
